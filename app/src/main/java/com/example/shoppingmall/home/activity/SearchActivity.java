@@ -90,6 +90,12 @@ public class SearchActivity extends Activity {
                             adapter = new VideoListAdapter(SearchActivity.this, videoList);
                             // 设置适配器
                             gridView.setAdapter(adapter);
+                            gridView.setOnItemClickListener((parent, view, position, id) -> {
+                                Intent intent = new Intent();
+                                intent.setClass(SearchActivity.this, VideoInfoActivity.class);
+                                intent.putExtra("video_info", videoList.get(position));
+                                SearchActivity.this.startActivity(intent);
+                            });
                         }
                     });
         });
@@ -98,6 +104,12 @@ public class SearchActivity extends Activity {
         VideoListAdapter adapter;
         adapter = new VideoListAdapter(this, search_info);
         gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent();
+            intent.setClass(SearchActivity.this, VideoInfoActivity.class);
+            intent.putExtra("video_info", search_info.get(position));
+            this.startActivity(intent);
+        });
     }
 
 

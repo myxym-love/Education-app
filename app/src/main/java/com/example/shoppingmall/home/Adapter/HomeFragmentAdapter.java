@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.shoppingmall.R;
+import com.example.shoppingmall.home.activity.VideoInfoActivity;
 import com.example.shoppingmall.home.bean.ActResult;
 import com.example.shoppingmall.home.bean.BannerResult;
 import com.example.shoppingmall.home.bean.ChannelResult;
@@ -357,6 +359,28 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public void setData(List<VideoResult> video_info) {
             adapter = new VideoListAdapter(mContext, video_info);
             gridView.setAdapter(adapter);
+
+
+            /**
+             * 设置item点击事件
+             */
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                /**
+                 * 点击事件
+                 * @param adapterView AdapterView
+                 * @param view View
+                 * @param i 位置
+                 * @param l l
+                 */
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, VideoInfoActivity.class);
+                    intent.putExtra("video_info", resultBean.getVideo_info().get(i));
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
     }

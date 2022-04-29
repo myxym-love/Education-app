@@ -4,31 +4,57 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:padding="10dp">
+    android:padding="7dp">
 
     <ImageView
         android:id="@+id/video_image"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_margin="10dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="7dp"
         android:src="@drawable/saoyisao" />
 
         <TextView
             android:id="@+id/video_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:textColor="#000"
             android:text="hello"/>
 
-<!--        <TextView-->
-<!--            android:id="@+id/video_price"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="12sp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:textColor="#000"-->
-<!--            android:layout_marginLeft="90dp"-->
-<!--            android:text="20"/>-->
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#000"
+            android:text="价格:"/>
+
+
+        <TextView
+            android:id="@+id/video_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="95dp"
+            android:textColor="#000"
+            android:text="20.22"/>
+
+        <TextView
+            android:id="@+id/video_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="#000"
+            android:text="¥"/>
+
+    </LinearLayout>
 </LinearLayout>

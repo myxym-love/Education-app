@@ -6,7 +6,9 @@ package com.example.shoppingmall.utils;
  * @Date 2022/4/27
  */
 public class Constants {
-    public static final String BASE_URL = "http://10.0.2.2:9000/";
+//    public static final String BASE_URL = "http://10.0.2.2:9000/";
+
+    public static final String BASE_URL = "http://10.11.150.44:9000/";
 
     public static final String HOME_BANNER_URL = BASE_URL + "api/v1/pub/video/list_banner/";
 

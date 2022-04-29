@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.example.shoppingmall.R;
 import com.example.shoppingmall.home.bean.VideoResult;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class VideoListAdapter extends BaseAdapter {
     public Context mContext;
     public List<VideoResult> video_info;
     public ViewHolder viewHolder;
+    public DecimalFormat df = new DecimalFormat("#.00");
 
     public VideoListAdapter(Context mContext, List<VideoResult> video_info) {
         this.mContext = mContext;
@@ -51,7 +53,7 @@ public class VideoListAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.iv_video_img = view.findViewById(R.id.video_image);
             viewHolder.tv_video_title = view.findViewById(R.id.video_title);
-//            viewHolder.tv_video_price = view.findViewById(R.id.video_price);
+            viewHolder.tv_video_price = view.findViewById(R.id.video_price);
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -63,7 +65,8 @@ public class VideoListAdapter extends BaseAdapter {
                 .into(viewHolder.iv_video_img);
 
         viewHolder.tv_video_title.setText((String) videoResult.getTitle());
-//        viewHolder.tv_video_price.setText(videoResult.getPrice());
+        String format = df.format(videoResult.getPrice()/100);
+        viewHolder.tv_video_price.setText(format);
 
         return view;
     }
@@ -72,6 +75,6 @@ public class VideoListAdapter extends BaseAdapter {
     static class ViewHolder {
         ImageView iv_video_img;
         TextView tv_video_title;
-//        TextView tv_video_price;
+        TextView tv_video_price;
     }
 }

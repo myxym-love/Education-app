@@ -42,7 +42,8 @@ import okhttp3.Call;
  * @Date 2022/4/27
  */
 
-public class HomeFragment extends BaseFragment {
+public class
+HomeFragment extends BaseFragment {
 
     private RecyclerView rvHome;
     private ImageButton ib_top;
