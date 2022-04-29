@@ -59,10 +59,10 @@ public class VideoListAdapter extends BaseAdapter {
 
         VideoResult videoResult = video_info.get(i);
         Glide.with(mContext)
-                .load(videoResult.get("cover_img"))
+                .load(videoResult.getCoverImg())
                 .into(viewHolder.iv_video_img);
 
-        viewHolder.tv_video_title.setText((String) videoResult.get("title"));
+        viewHolder.tv_video_title.setText((String) videoResult.getTitle());
 //        viewHolder.tv_video_price.setText(videoResult.getPrice());
 
         return view;

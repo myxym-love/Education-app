@@ -27,6 +27,7 @@ public class MyApplication extends Application {
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .build();
+        okHttpClient.dispatcher().setMaxRequests(9);
         OkHttpUtils.initClient(okHttpClient);
     }
 

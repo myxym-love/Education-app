@@ -1,5 +1,6 @@
 package com.example.shoppingmall.home.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * @Author Mao Yu
  * @Date 2022/4/28
  */
-public class ResultBean {
+public class ResultBean implements Serializable {
 
     private List<BannerResult.DataDTO> banner_info;
 
@@ -17,6 +18,16 @@ public class ResultBean {
     private List<ActResult.DataDTO> act_info;
 
     private List<VideoResult> video_info;
+
+    private List<VideoResult> search_info;
+
+    public List<VideoResult> getSearch_info() {
+        return search_info;
+    }
+
+    public void setSearch_info(List<VideoResult> search_info) {
+        this.search_info = search_info;
+    }
 
     public List<VideoResult> getVideo_info() {
         return video_info;

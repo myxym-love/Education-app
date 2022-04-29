@@ -1,17 +1,25 @@
 package com.example.shoppingmall.home.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.alibaba.fastjson.JSONObject;
 import com.example.shoppingmall.R;
 import com.example.shoppingmall.base.BaseFragment;
 import com.example.shoppingmall.home.Adapter.HomeFragmentAdapter;
+import com.example.shoppingmall.home.Adapter.VideoListAdapter;
 import com.example.shoppingmall.home.activity.SearchActivity;
 import com.example.shoppingmall.home.bean.ActResult;
 import com.example.shoppingmall.home.bean.BannerResult;
@@ -23,6 +31,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.alibaba.fastjson.JSON;
 
+import java.io.Serializable;
 import java.util.List;
 
 import okhttp3.Call;
@@ -39,6 +48,7 @@ public class HomeFragment extends BaseFragment {
     private ImageButton ib_top;
     private EditText search_text;
     private ImageButton search_icon;
+    public ResultBean resultBean = new ResultBean();
 
     @Override
     public View initView() {
@@ -79,6 +89,7 @@ public class HomeFragment extends BaseFragment {
 
     /**
      * 解析数据 并且显示数据
+     *
      * @param json 返回的json数据
      */
     private void processData(String json) {
@@ -95,7 +106,6 @@ public class HomeFragment extends BaseFragment {
             List<VideoResult> videoResult = JSON.parseArray(video, VideoResult.class);
             List<ChannelResult.DataDTO> channelResult = JSON.parseArray(channelList, ChannelResult.DataDTO.class);
 
-            ResultBean resultBean = new ResultBean();
             resultBean.setAct_info(actResult); // 活动数据
             resultBean.setChannel_info(channelResult); // 频道数据
             resultBean.setBanner_info(bannerResult); // 设置banner数据
@@ -106,19 +116,6 @@ public class HomeFragment extends BaseFragment {
             rvHome.setAdapter(adapter); // 设置适配器
 
             GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 1); // 创建网格布局管理器
-            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                     //判断当前位置是否是banner位置
-                    if (position <= 2) { // 判断是否为banner
-                        ib_top.setVisibility(View.GONE); // 隐藏回到顶部按钮
-
-                    } else {
-                        ib_top.setVisibility(View.VISIBLE); // 显示回到顶部按钮
-                    }
-                    return 1; // 设置网格布局管理器的SpanSizeLookup
-                }
-            });
             rvHome.setLayoutManager(gridLayoutManager); // 设置布局管理器
 
             initListener(); // 初始化监听器
@@ -131,9 +128,74 @@ public class HomeFragment extends BaseFragment {
     private void initListener() {
         ib_top.setOnClickListener(view -> rvHome.scrollToPosition(0));
         search_icon.setOnClickListener(view -> {
-            Intent intent = new Intent(mContext, SearchActivity.class);
-            startActivity(intent);
+            String search_text_str = search_text.getText().toString();
+            OkHttpUtils.get()
+                    .url(Constants.SEARCH_URL)
+                    .id(100)
+                    .addParams("key", search_text_str)
+                    .build()
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int i) {
+                            Log.e("TAG", "onError: " + e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(String s, int i) {
+                            JSONObject json = JSONObject.parseObject(s);
+                            String data = json.getString("data");
+                            List<VideoResult> videoList = JSONObject.parseArray(data, VideoResult.class);
+                            Intent intent = new Intent(); // 创建Intent
+                            intent.setClass(mContext, SearchActivity.class); // 设置跳转的activity
+                            intent.putExtra("search_info", (Serializable) videoList); // 将关键字传过去传递过去
+                            startActivity(intent); // 启动搜索页面
+                        }
+                    });
+
+        });
+
+        // 设置网格布局管理器的监听器
+        rvHome.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                // 判断是否滑动到顶部
+                if (rvHome.canScrollVertically(-1)) {
+                    ib_top.setVisibility(View.VISIBLE); // 显示回到顶部按钮
+                } else {
+                    ib_top.setVisibility(View.GONE); // 隐藏回到顶部按钮
+                }
+            }
+        });
+
+        // 设置回到顶部按钮的监听器
+        ib_top.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rvHome.smoothScrollToPosition(0); // 平滑滚动到顶部
+            }
         });
     }
 
+
+    class Contract extends ActivityResultContract<Boolean, String> {
+        @NonNull
+        @Override
+        public Intent createIntent(@NonNull Context mContext, Boolean input) {
+            Intent intent = new Intent(mContext, SearchActivity.class);
+            intent.putExtra("b", input);
+            return intent;
+        }
+
+        @Override
+        public String parseResult(int resultCode, @Nullable Intent intent) {
+            assert intent != null;
+            return intent.getStringExtra("search_key");
+        }
+    }
 }

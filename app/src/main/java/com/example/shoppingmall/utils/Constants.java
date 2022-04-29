@@ -18,4 +18,6 @@ public class Constants {
 
     public static final String HOME_URL = BASE_URL + "api/v1/pub/home/getData/";
 
+    public static final String SEARCH_URL = BASE_URL + "api/v1/pub/video/search/";
+
 }

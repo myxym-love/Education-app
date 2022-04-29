@@ -5,6 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @author MaoYu
  * 2021/7/6
  */
-public class VideoResult extends JSONObject {
+public class VideoResult  implements Serializable {
 
     @JSONField(name = "id")
     private Integer id;
@@ -23,14 +24,14 @@ public class VideoResult extends JSONObject {
     @JSONField(name = "summary")
     private String summary;;
 
-    @JSONField(name = "coverImg")
+    @JSONField(name = "cover_img")
     @JsonProperty("cover_img")
     private String coverImg;
 
     @JSONField(name = "price")
     private Integer price;
 
-    @JSONField(name = "createTime")
+    @JSONField(name = "create_time")
     @JsonProperty("create_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
@@ -38,7 +39,7 @@ public class VideoResult extends JSONObject {
     @JSONField(name = "point")
     private Double point;
 
-    @JSONField(name = "chapterResultList")
+    @JSONField(name = "chapter_list")
     @JsonProperty("chapter_list")
     private List<ChapterResult> chapterResultList;
 
