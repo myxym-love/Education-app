@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.shoppingmall.R;
+import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.home.bean.VideoResult;
 import com.example.shoppingmall.home.videoDetail.VideoDetailFragment;
 import com.example.shoppingmall.home.videoDetail.VideoDirectoryFragment;
@@ -80,7 +81,7 @@ public class VideoInfoActivity extends FragmentActivity {
     @SuppressLint("SetTextI18n")
     private void init() {
         // 获取从主页面传递过来的数据
-        VideoResult video_info = (VideoResult) getIntent().getSerializableExtra("video_info");
+        JsonResult video_info = (JsonResult) getIntent().getSerializableExtra("video_info");
         //设置数据
         String format = df.format(video_info.getPrice()/100);
         point.setText(video_info.getPoint() + "");

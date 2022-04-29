@@ -23,6 +23,7 @@ import com.example.shoppingmall.home.activity.VideoInfoActivity;
 import com.example.shoppingmall.home.bean.ActResult;
 import com.example.shoppingmall.home.bean.BannerResult;
 import com.example.shoppingmall.home.bean.ChannelResult;
+import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.home.bean.ResultBean;
 import com.example.shoppingmall.home.bean.VideoResult;
 import com.example.shoppingmall.home.uitls.AlphaPageTransformer;
@@ -32,6 +33,8 @@ import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
 import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.listener.OnBannerListener;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -129,7 +132,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             actViewHolder.setData(resultBean.getAct_info()); // 设置数据
         } else if (getItemViewType(position) == VIDEO) {
             VideoListViewHolder videoListViewHolder = (VideoListViewHolder) holder;
-            videoListViewHolder.setData(resultBean.getVideo_info()); // 设置数据
+            videoListViewHolder.setData(resultBean.getJsonResult()); // 设置数据
         }
     }
 
@@ -356,7 +359,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             this.resultBean = resultBean;
         }
 
-        public void setData(List<VideoResult> video_info) {
+        public void setData(List<JsonResult> video_info) {
             adapter = new VideoListAdapter(mContext, video_info);
             gridView.setAdapter(adapter);
 
@@ -377,7 +380,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent();
                     intent.setClass(mContext, VideoInfoActivity.class);
-                    intent.putExtra("video_info", resultBean.getVideo_info().get(i));
+                    intent.putExtra("video_info", resultBean.getJsonResult().get(i));
                     mContext.startActivity(intent);
                 }
             });

@@ -3,26 +3,18 @@ package com.example.shoppingmall.home.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
-
-import androidx.annotation.RequiresApi;
-
 import com.alibaba.fastjson.JSONObject;
 import com.example.shoppingmall.R;
 import com.example.shoppingmall.home.Adapter.VideoListAdapter;
-import com.example.shoppingmall.home.bean.ResultBean;
-import com.example.shoppingmall.home.bean.VideoResult;
+import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.utils.Constants;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
-
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,13 +35,13 @@ public class SearchActivity extends Activity {
     @BindView(R.id.search_item)
     public GridView gridView;
 
-    @BindView(R.id.search_text)
-    public EditText search_text;
+    @BindView(R.id.search_content)
+    public EditText search_content;
 
     @BindView(R.id.search_icon)
     public ImageButton search_icon;
 
-    public List<VideoResult> videoList = new ArrayList<>();
+    public List<JsonResult> videoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +57,7 @@ public class SearchActivity extends Activity {
          */
         search_icon.setOnClickListener(v -> {
             // 获取输入框的内容
-            String search_text_str = search_text.getText().toString();
+            String search_text_str = search_content.getContext().toString();
             // 网络请求
             OkHttpUtils.get()
                     .url(Constants.SEARCH_URL)
@@ -84,7 +76,7 @@ public class SearchActivity extends Activity {
                             JSONObject json = JSONObject.parseObject(s);
                             String data = json.getString("data");
                             // 解析数据
-                            videoList = JSONObject.parseArray(data, VideoResult.class);
+                            videoList = JSONObject.parseArray(data, JsonResult.class);
                             VideoListAdapter adapter;
                             // 创建适配器
                             adapter = new VideoListAdapter(SearchActivity.this, videoList);
@@ -93,21 +85,21 @@ public class SearchActivity extends Activity {
                             gridView.setOnItemClickListener((parent, view, position, id) -> {
                                 Intent intent = new Intent();
                                 intent.setClass(SearchActivity.this, VideoInfoActivity.class);
-                                intent.putExtra("video_info", videoList.get(position));
+                                intent.putExtra("video_info", (Serializable)videoList.get(position));
                                 SearchActivity.this.startActivity(intent);
                             });
                         }
                     });
         });
 
-        ArrayList<VideoResult> search_info = (ArrayList<VideoResult>) getIntent().getSerializableExtra("search_info");
+        List<JsonResult> search_info = (ArrayList<JsonResult>) getIntent().getSerializableExtra("search_info");
         VideoListAdapter adapter;
         adapter = new VideoListAdapter(this, search_info);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent();
             intent.setClass(SearchActivity.this, VideoInfoActivity.class);
-            intent.putExtra("video_info", search_info.get(position));
+            intent.putExtra("video_info", (Serializable)search_info.get(position));
             this.startActivity(intent);
         });
     }

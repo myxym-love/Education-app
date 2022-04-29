@@ -1,16 +1,18 @@
 package com.example.shoppingmall.home.bean;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * author MaoYu
  * 2021/7/6
  */
-public class EpisodeResult {
+public class EpisodeResult extends JSONObject implements  Serializable {
 
     private Integer id;
 

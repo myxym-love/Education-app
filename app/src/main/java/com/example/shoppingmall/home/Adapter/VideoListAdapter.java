@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.shoppingmall.R;
+import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.home.bean.VideoResult;
 
 import java.text.DecimalFormat;
@@ -22,11 +23,11 @@ import java.util.List;
 public class VideoListAdapter extends BaseAdapter {
 
     public Context mContext;
-    public List<VideoResult> video_info;
+    public List<JsonResult> video_info;
     public ViewHolder viewHolder;
     public DecimalFormat df = new DecimalFormat("#.00");
 
-    public VideoListAdapter(Context mContext, List<VideoResult> video_info) {
+    public VideoListAdapter(Context mContext, List<JsonResult> video_info) {
         this.mContext = mContext;
         this.video_info = video_info;
     }
@@ -59,7 +60,7 @@ public class VideoListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        VideoResult videoResult = video_info.get(i);
+        JsonResult videoResult = video_info.get(i);
         Glide.with(mContext)
                 .load(videoResult.getCoverImg())
                 .into(viewHolder.iv_video_img);

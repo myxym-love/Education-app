@@ -23,12 +23,14 @@
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/activity_welcome.xml" value="0.26145833333333335" />
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/channel_item.xml" value="0.2" />
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/fragment_home.xml" value="0.2" />
-        <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/fragment_home_header.xml" value="0.1" />
+        <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/fragment_home_header.xml" value="0.128" />
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/fragment_video_detail.xml" value="0.11927083333333334" />
-        <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/fragment_video_directory.xml" value="0.11927083333333334" />
+        <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/fragment_video_directory.xml" value="0.2" />
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/item_act.xml" value="0.13958333333333334" />
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/item_banner.xml" value="0.10572916666666667" />
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/item_channel.xml" value="0.15833333333333333" />
+        <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/item_video_directory.xml" value="0.264" />
+        <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/item_video_episode.xml" value="0.16666666666666666" />
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/item_video_list.xml" value="0.13125" />
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/layout/video_list_item.xml" value="0.1" />
         <entry key="..\:/Adocument/project/ShoppingMall/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1225" />

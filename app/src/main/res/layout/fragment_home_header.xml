@@ -13,7 +13,7 @@
         android:layout_marginLeft="10dp"/>
 
     <EditText
-        android:id="@+id/search_text"
+        android:id="@+id/search_content"
         android:layout_width="250dp"
         android:layout_height="35dp"
         android:layout_marginLeft="10dp"

@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,9 @@ import com.example.shoppingmall.home.activity.SearchActivity;
 import com.example.shoppingmall.home.bean.ActResult;
 import com.example.shoppingmall.home.bean.BannerResult;
 import com.example.shoppingmall.home.bean.ChannelResult;
+import com.example.shoppingmall.home.bean.ChapterResult;
+import com.example.shoppingmall.home.bean.EpisodeResult;
+import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.home.bean.ResultBean;
 import com.example.shoppingmall.home.bean.VideoResult;
 import com.example.shoppingmall.utils.Constants;
@@ -42,9 +46,9 @@ import okhttp3.Call;
  * @Date 2022/4/27
  */
 
-public class
-HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment {
 
+    public JsonResult jsonResult;
     private RecyclerView rvHome;
     private ImageButton ib_top;
     private EditText search_text;
@@ -56,7 +60,7 @@ HomeFragment extends BaseFragment {
         View view = View.inflate(mContext, R.layout.fragment_home, null); // 加载主页面布局
         rvHome = (RecyclerView) view.findViewById(R.id.rv_home); // 加载RecyclerView
         ib_top = (ImageButton) view.findViewById(R.id.ib_top); // 加载回到顶部按钮
-        search_text = (EditText) view.findViewById(R.id.search_text); // 加载搜索框
+        search_text = (EditText) view.findViewById(R.id.search_content); // 加载搜索框
         search_icon = (ImageButton) view.findViewById(R.id.search_icon); // 加载搜索按钮
         return view; // 返回布局
     }
@@ -105,8 +109,12 @@ HomeFragment extends BaseFragment {
             List<ActResult.DataDTO> actResult = JSON.parseArray(actList, ActResult.DataDTO.class);
             List<BannerResult.DataDTO> bannerResult = JSON.parseArray(videoBanner, BannerResult.DataDTO.class);
             List<VideoResult> videoResult = JSON.parseArray(video, VideoResult.class);
+
+            List<JsonResult> jsonResults = JSONObject.parseArray(video, JsonResult.class);
+
             List<ChannelResult.DataDTO> channelResult = JSON.parseArray(channelList, ChannelResult.DataDTO.class);
 
+            resultBean.setJsonResult(jsonResults);
             resultBean.setAct_info(actResult); // 活动数据
             resultBean.setChannel_info(channelResult); // 频道数据
             resultBean.setBanner_info(bannerResult); // 设置banner数据
@@ -142,13 +150,13 @@ HomeFragment extends BaseFragment {
                         }
 
                         @Override
-                        public void onResponse(String s, int i) {
+                        public void onResponse(String s, int id) {
                             JSONObject json = JSONObject.parseObject(s);
                             String data = json.getString("data");
-                            List<VideoResult> videoList = JSONObject.parseArray(data, VideoResult.class);
+                            List<JsonResult> jsonResult = JSONObject.parseArray(data, JsonResult.class);
                             Intent intent = new Intent(); // 创建Intent
                             intent.setClass(mContext, SearchActivity.class); // 设置跳转的activity
-                            intent.putExtra("search_info", (Serializable) videoList); // 将关键字传过去传递过去
+                            intent.putExtra("search_info", (Serializable) jsonResult); // 将关键字传过去传递过去
                             startActivity(intent); // 启动搜索页面
                         }
                     });

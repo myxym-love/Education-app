@@ -21,6 +21,16 @@ public class ResultBean implements Serializable {
 
     private List<VideoResult> search_info;
 
+    private List<JsonResult> jsonResult;
+
+    public List<JsonResult> getJsonResult() {
+        return jsonResult;
+    }
+
+    public void setJsonResult(List<JsonResult> jsonResult) {
+        this.jsonResult = jsonResult;
+    }
+
     public List<VideoResult> getSearch_info() {
         return search_info;
     }

@@ -13,7 +13,7 @@ import java.util.List;
  * @author MaoYu
  * 2021/7/6
  */
-public class VideoResult  implements Serializable {
+public class VideoResult implements Serializable {
 
     @JSONField(name = "id")
     private Integer id;
@@ -25,14 +25,12 @@ public class VideoResult  implements Serializable {
     private String summary;;
 
     @JSONField(name = "cover_img")
-    @JsonProperty("cover_img")
     private String coverImg;
 
     @JSONField(name = "price")
     private Integer price;
 
     @JSONField(name = "create_time")
-    @JsonProperty("create_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
 
@@ -40,7 +38,6 @@ public class VideoResult  implements Serializable {
     private Double point;
 
     @JSONField(name = "chapter_list")
-    @JsonProperty("chapter_list")
     private List<ChapterResult> chapterResultList;
 
     public List<ChapterResult> getChapterList() {
