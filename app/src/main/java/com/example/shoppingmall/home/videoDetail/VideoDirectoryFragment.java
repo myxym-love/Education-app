@@ -46,22 +46,26 @@ public class VideoDirectoryFragment extends BaseFragment {
     public void initData() {
         JsonResult video_info = (JsonResult) requireActivity().getIntent().getSerializableExtra("video_info");
         chapter_list = (List<ChapterDTO>) video_info.getChapterList();
-
         myExpandableListAdapter = new MyExpandableListAdapter(chapter_list, requireContext());
-        elv.setAdapter(myExpandableListAdapter);
-
-        initListener();
+        elv.setAdapter(myExpandableListAdapter); // 设置适配器
+        initListener(); // 初始化监听器
     }
 
     private void initListener() {
 
+        /**
+         * 设置组点击监听
+         */
         elv.setOnGroupClickListener((parent, view, position, id) -> {
-            Toast.makeText(requireActivity(), chapter_list.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(requireActivity(), chapter_list.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             return false;
         });
 
+        /**
+         * 设置子项点击监听
+         */
         elv.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            Toast.makeText(requireActivity(), chapter_list.get(groupPosition).getEpisodeList().get(childPosition).getTitle(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(requireActivity(), chapter_list.get(groupPosition).getEpisodeList().get(childPosition).getTitle(), Toast.LENGTH_SHORT).show();
             return false;
         });
     }

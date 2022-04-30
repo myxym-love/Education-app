@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
  * @projectName shoppingmall
  * @email 1602271854@qq.com
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment{
 
     public Context mContext; // 环境上下文
 
