@@ -12,6 +12,41 @@ import java.util.List;
  */
 public class JsonResult implements Serializable {
 
+    private int number = 1;
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public boolean isEditing() {
+        return isEditing;
+    }
+
+    public void setEditing(boolean editing) {
+        isEditing = editing;
+    }
+
+    public boolean isChildSelected() {
+        return isChildSelected;
+    }
+
+    public void setChildSelected(boolean childSelected) {
+        isChildSelected = childSelected;
+    }
+
+    /**
+     * 是否处于编辑状态
+     */
+    private boolean isEditing;
+    /**
+     * 是否被选中
+     */
+    private boolean isChildSelected;
+
     @JSONField(name = "id")
     private Integer id;
     @JSONField(name = "title")
@@ -204,6 +239,21 @@ public class JsonResult implements Serializable {
 
         public Integer getOrdered() {
             return ordered;
+        }
+
+        @Override
+        public String toString() {
+            return "EpisodeListDTO{" +
+                    "id=" + id +
+                    ", title='" + title + '\'' +
+                    ", num=" + num +
+                    ", ordered=" + ordered +
+                    ", free=" + free +
+                    ", playUrl='" + playUrl + '\'' +
+                    ", chapterId=" + chapterId +
+                    ", videoId=" + videoId +
+                    ", createTime=" + createTime +
+                    '}';
         }
 
         public void setOrdered(Integer ordered) {

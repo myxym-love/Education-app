@@ -22,4 +22,6 @@ public class Constants {
 
     public static final String SEARCH_URL = BASE_URL + "api/v1/pub/video/search/";
 
+    public static Boolean isBackHome = false;
+
 }
