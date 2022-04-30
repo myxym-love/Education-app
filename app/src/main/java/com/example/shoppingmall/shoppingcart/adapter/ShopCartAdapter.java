@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.shoppingmall.R;
 import com.example.shoppingmall.home.bean.JsonResult;
+import com.example.shoppingmall.shoppingcart.activity.VideoCartActivity;
 import com.example.shoppingmall.shoppingcart.utils.CartStorage;
 import com.example.shoppingmall.shoppingcart.view.NumberAddSubView;
 
@@ -34,13 +35,15 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public DecimalFormat df = new DecimalFormat("#.00");
     private Context mContext;
     private List<JsonResult> datas;
+    private List<JsonResult> datas2;
     private TextView tvShopcartTotal;
     private CheckBox checkboxAll;
     private CheckBox cb_all;
 
-    public ShopCartAdapter(Context mContext, List<JsonResult> datas, TextView tvShopcartTotal, CartStorage cartProvider, CheckBox checkboxAll, CheckBox cbAll) {
+    public ShopCartAdapter(Context mContext, List<JsonResult> datas,List<JsonResult> datas2, TextView tvShopcartTotal, CartStorage cartProvider, CheckBox checkboxAll, CheckBox cbAll) {
         this.mContext = mContext;
         this.datas = datas;
+        this.datas2 = datas2;
         this.tvShopcartTotal = tvShopcartTotal;
         this.cartProvider = cartProvider;
         this.checkboxAll = checkboxAll;
@@ -51,6 +54,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         checkboxAll.setChecked(true);
         for (int i = 0; i < datas.size(); i++) {
             datas.get(i).setChildSelected(true);
+            datas2.get(i).setChildSelected(true);
         }
         showTotalPrice();
 
@@ -58,7 +62,9 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             @Override
             public void onItemClickListener(View view, int position) {
                 JsonResult goodsBean = datas.get(position);
+                JsonResult goodsBean2 = datas2.get(position);
                 goodsBean.setChildSelected(!goodsBean.isChildSelected());
+                goodsBean2.setChildSelected(!goodsBean2.isChildSelected());
                 notifyItemChanged(position);
                 checkAll();
                 showTotalPrice();
@@ -112,16 +118,19 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (datas != null && datas.size() > 0) {
             for (int i = 0; i < datas.size(); i++) {
                 datas.get(i).setChildSelected(checked);
+                datas2.get(i).setChildSelected(checked);
                 checkboxAll.setChecked(checked);
                 notifyItemChanged(i);
             }
         } else {
             checkboxAll.setChecked(false);
-
         }
     }
 
 
+    /**
+     * 删除购物车商品
+     */
     public void deleteData() {
         if (datas != null && datas.size() > 0) {
             for (Iterator iterator = datas.iterator(); iterator.hasNext(); ) {
@@ -143,10 +152,27 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 }
             }
+            for (Iterator iterator = datas2.iterator(); iterator.hasNext(); ) {
+
+                JsonResult cart2 = (JsonResult) iterator.next();
+
+                if (cart2.isChildSelected()) {
+
+                    //1.删除本地缓存的
+                    cartProvider.deleteData(cart2);
+
+                    //2.删除当前内存的
+                    iterator.remove();
+
+                }
+            }
         }
     }
 
 
+    /**
+     * 全选
+     */
     public void checkAll() {
         if (datas != null && datas.size() > 0) {
             for (int i = 0; i < datas.size(); i++) {
@@ -223,6 +249,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
+    @SuppressLint("SetTextI18n")
     public void showTotalPrice() {
         tvShopcartTotal.setText(getTotalPrice() + "");
     }
@@ -233,7 +260,6 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             for (int i = 0; i < datas.size(); i++) {
                 JsonResult goodsBean = datas.get(i);
                 if (goodsBean.isChildSelected())
-//                    df.format(((long) goodsBean.getPrice() * goodsBean.getNumber())/100);
                     total += Double.parseDouble(df.format(((long) goodsBean.getPrice() * goodsBean.getNumber())/100) + "");
             }
         }

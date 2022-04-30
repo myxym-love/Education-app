@@ -17,7 +17,7 @@ import com.example.shoppingmall.R;
 
 
 /**
- * Created by Administrator on 2016/8/31.
+ * 自定义的数量加减View
  */
 public class NumberAddSubView extends LinearLayout implements View.OnClickListener {
     private ImageView btn_sub;
@@ -98,7 +98,7 @@ public class NumberAddSubView extends LinearLayout implements View.OnClickListen
             if (addDrawable != null) {
                 btn_add.setImageDrawable(addDrawable);
             }
-            Drawable subDrawable = tintTypedArray.getDrawable(R.styleable.NumberAddSubView_numberSubBackground);
+            @SuppressLint("RestrictedApi") Drawable subDrawable = tintTypedArray.getDrawable(R.styleable.NumberAddSubView_numberSubBackground);
             if (subDrawable != null) {
                 btn_sub.setImageDrawable(subDrawable);
             }

@@ -29,6 +29,7 @@ public class CartStorage {
     // 商品数量的集合
     private SparseArray<JsonResult> mCartMap;
 
+
     /**
      * 得到购物车的单例
      */
@@ -80,7 +81,6 @@ public class CartStorage {
     }
 
     public List<JsonResult> getDataFromLocal() {
-
         List<JsonResult> carts = new ArrayList<>();
         //从本地获取缓存数据
         String savaJson = CacheUtils.getString(mContext, JSON_CART);
@@ -145,6 +145,18 @@ public class CartStorage {
         mCartMap.put(cart.getId(), cart);
         //保存数据
         commit();
+    }
+
+    /**
+     * 清空购物车
+     * @return 是否清空成功
+     */
+    public boolean clearCart() {
+        //清空数据
+        mCartMap.clear();
+        //保存数据
+        commit();
+        return true;
     }
 
 

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alipay.sdk.app.EnvUtils;
 import com.example.shoppingmall.R;
 import com.example.shoppingmall.app.MainActivity;
 import com.example.shoppingmall.home.bean.JsonResult;
@@ -163,10 +164,11 @@ public class VideoCartActivity extends Activity implements View.OnClickListener{
         CartStorage cartProvider = CartStorage.getInstance();
 
         List<JsonResult> datas = cartProvider.getDataFromLocal();
+        List<JsonResult> datas2 = cartProvider.getDataFromLocal();
         if (datas != null && datas.size() > 0) {
             tvShopcartEdit.setVisibility(View.VISIBLE);
             ll_empty_shopcart.setVisibility(View.GONE);
-            adapter = new ShopCartAdapter(this, datas, tvShopcartTotal, cartProvider, checkboxAll, cb_all);
+            adapter = new ShopCartAdapter(this, datas, datas2,tvShopcartTotal, cartProvider, checkboxAll, cb_all);
             recyclerview.setLayoutManager(new LinearLayoutManager(this));
             recyclerview.setAdapter(adapter);
         } else {
