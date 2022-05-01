@@ -25,12 +25,14 @@ import com.example.shoppingmall.home.bean.ResultBean;
 import com.example.shoppingmall.home.bean.VideoResult;
 import com.example.shoppingmall.type.adapter.TypeLeftAdapter;
 import com.example.shoppingmall.type.adapter.TypeRightAdapter;
+import com.example.shoppingmall.type.bean.TypeBean;
 import com.example.shoppingmall.utils.Constants;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import okhttp3.Call;
@@ -44,7 +46,8 @@ public class ListFragment extends BaseFragment {
     private FrameLayout fl_list_container;
     private ListView lv_left;
     private RecyclerView rv_right;
-    private ResultBean resultBean = new ResultBean();
+    private List<TypeBean.DataDTO> resultBean;
+    private List<TypeBean.DataDTO.VideoListDTO> videoList;
 
 //
 //
@@ -73,7 +76,7 @@ public class ListFragment extends BaseFragment {
     public void getDataFromNet() {
         OkHttpUtils
                 .get()
-                .url(Constants.HOME_URL)
+                .url(Constants.TYPE_URL)
                 .id(100)
                 .build()
                 .execute(new MyStringCallback());
@@ -106,7 +109,7 @@ public class ListFragment extends BaseFragment {
                         //解析数据
                         processData(response);
                         if (isFirst) {
-                            leftAdapter = new TypeLeftAdapter(mContext);
+                            leftAdapter = new TypeLeftAdapter(mContext,resultBean);
                             lv_left.setAdapter(leftAdapter);
                         }
 
@@ -114,7 +117,7 @@ public class ListFragment extends BaseFragment {
                         initListener(leftAdapter);
 
                         //解析右边数据
-                        TypeRightAdapter rightAdapter = new TypeRightAdapter(mContext, resultBean);
+                        TypeRightAdapter rightAdapter = new TypeRightAdapter(mContext, videoList,resultBean);
                         rv_right.setAdapter(rightAdapter);
 
                         GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
@@ -150,6 +153,11 @@ public class ListFragment extends BaseFragment {
                 if (position != 0) {
                     isFirst = false;
                 }
+
+                getDataFromNet();
+                for (int i = 0; i < resultBean.size(); i++) {
+                    videoList.add((TypeBean.DataDTO.VideoListDTO) resultBean.get(i).getVideoList());
+                }
                 leftAdapter.notifyDataSetChanged();
             }
         });
@@ -174,24 +182,8 @@ public class ListFragment extends BaseFragment {
         if (!TextUtils.isEmpty(json)) {
             JSONObject jsonObject = JSON.parseObject(json);
 
-            String actList = jsonObject.getString("actList");
-            String videoBanner = jsonObject.getString("videoBanner");
-            String video = jsonObject.getString("video");
-            String channelList = jsonObject.getString("channelList");
-
-            List<ActResult.DataDTO> actResult = JSON.parseArray(actList, ActResult.DataDTO.class);
-            List<BannerResult.DataDTO> bannerResult = JSON.parseArray(videoBanner, BannerResult.DataDTO.class);
-            List<VideoResult> videoResult = JSON.parseArray(video, VideoResult.class);
-
-            List<JsonResult> jsonResults = JSONObject.parseArray(video, JsonResult.class);
-
-            List<ChannelResult.DataDTO> channelResult = JSON.parseArray(channelList, ChannelResult.DataDTO.class);
-
-            resultBean.setJsonResult(jsonResults);
-            resultBean.setAct_info(actResult); // 活动数据
-            resultBean.setChannel_info(channelResult); // 频道数据
-            resultBean.setBanner_info(bannerResult); // 设置banner数据
-            resultBean.setVideo_info(videoResult); // 视频数据
+            String data = jsonObject.getString("data");
+            resultBean = JSON.parseArray(data,TypeBean.DataDTO.class);
         }
 
     }

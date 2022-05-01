@@ -20,6 +20,7 @@ import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.home.bean.ResultBean;
 import com.example.shoppingmall.home.bean.VideoResult;
 import com.example.shoppingmall.type.adapter.TagGridViewAdapter;
+import com.example.shoppingmall.type.bean.TypeBean;
 import com.example.shoppingmall.utils.Constants;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -38,7 +39,7 @@ public class TagFragment extends BaseFragment {
 
     private GridView gv_tag;
     private TagGridViewAdapter adapter;
-    private ResultBean resultBean = new ResultBean();
+    private List<TypeBean.DataDTO> resultBean;
 
     @Override
     public View initView() {
@@ -58,7 +59,7 @@ public class TagFragment extends BaseFragment {
     public void getDataFromNet() {
         OkHttpUtils
                 .get()
-                .url(Constants.HOME_URL)
+                .url(Constants.TYPE_URL)
                 .id(100)
                 .build()
                 .execute(new MyStringCallback());
@@ -104,24 +105,8 @@ public class TagFragment extends BaseFragment {
         if (!TextUtils.isEmpty(json)) {
             JSONObject jsonObject = JSON.parseObject(json);
 
-            String actList = jsonObject.getString("actList");
-            String videoBanner = jsonObject.getString("videoBanner");
-            String video = jsonObject.getString("video");
-            String channelList = jsonObject.getString("channelList");
-
-            List<ActResult.DataDTO> actResult = JSON.parseArray(actList, ActResult.DataDTO.class);
-            List<BannerResult.DataDTO> bannerResult = JSON.parseArray(videoBanner, BannerResult.DataDTO.class);
-            List<VideoResult> videoResult = JSON.parseArray(video, VideoResult.class);
-
-            List<JsonResult> jsonResults = JSONObject.parseArray(video, JsonResult.class);
-
-            List<ChannelResult.DataDTO> channelResult = JSON.parseArray(channelList, ChannelResult.DataDTO.class);
-
-            resultBean.setJsonResult(jsonResults);
-            resultBean.setAct_info(actResult); // 活动数据
-            resultBean.setChannel_info(channelResult); // 频道数据
-            resultBean.setBanner_info(bannerResult); // 设置banner数据
-            resultBean.setVideo_info(videoResult); // 视频数据
+            String data = jsonObject.getString("data");
+            resultBean = JSON.parseArray(data,TypeBean.DataDTO.class);
         }
 
     }

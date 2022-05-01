@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.shoppingmall.R;
+import com.example.shoppingmall.type.bean.TypeBean;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/10/3.
@@ -15,20 +18,21 @@ import com.example.shoppingmall.R;
 public class TypeLeftAdapter extends BaseAdapter {
     private Context mContext;
     private int mSelect = 0;//选中项
-    private String[] titles = new String[]{"小裙子", "上衣", "下装", "外套", "配件", "包包", "装扮", "居家宅品", "办公文具", "数码周边", "游戏专区"};
+    List<TypeBean.DataDTO> resultBean;
 
-    public TypeLeftAdapter(Context mContext) {
+    public TypeLeftAdapter(Context mContext, List<TypeBean.DataDTO> resultBean) {
         this.mContext = mContext;
+        this.resultBean = resultBean;
     }
 
     @Override
     public int getCount() {
-        return titles.length;
+        return resultBean.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return titles[position];
+        return resultBean.get(position);
     }
 
     @Override
@@ -48,7 +52,7 @@ public class TypeLeftAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tv_name.setText(titles[position]);
+        holder.tv_name.setText(resultBean.get(position).getTitle());
 
         if (mSelect == position) {
             convertView.setBackgroundResource(R.drawable.type_item_background_selector);  //选中项背景

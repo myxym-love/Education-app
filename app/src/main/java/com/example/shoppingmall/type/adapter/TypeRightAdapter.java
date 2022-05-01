@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Parcelable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.example.shoppingmall.R;
 import com.example.shoppingmall.home.activity.VideoInfoActivity;
@@ -22,9 +24,10 @@ import com.example.shoppingmall.home.bean.ChannelResult;
 import com.example.shoppingmall.home.bean.ChapterResult;
 import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.home.bean.ResultBean;
-import com.example.shoppingmall.home.bean.VideoResult;
+import com.example.shoppingmall.type.bean.TypeBean;
 import com.example.shoppingmall.utils.DensityUtil;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -34,11 +37,11 @@ public class TypeRightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      * 常用分类
      */
-    private List<ChannelResult.DataDTO> child;
+    private List<TypeBean.DataDTO> child;
     /**
      * 热卖商品列表的数据
      */
-    private List<JsonResult> hot_product_list;
+    private List<TypeBean.DataDTO.VideoListDTO> hot_product_list;
 
     /**
      * 热卖
@@ -59,13 +62,14 @@ public class TypeRightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private final LayoutInflater mLayoutInflater;
 
-    public TypeRightAdapter(Context mContext, ResultBean result) {
+    public TypeRightAdapter(Context mContext, List<TypeBean.DataDTO.VideoListDTO> result,List<TypeBean.DataDTO> resultBean) {
         this.mContext = mContext;
 
         mLayoutInflater = LayoutInflater.from(mContext);
-        assert result != null;
-        child = result.getChannel_info();
-        hot_product_list = result.getJsonResult();
+        child = resultBean;
+        for (int i = 0; i < result.size(); i++) {
+            hot_product_list = result;
+        }
     }
 
     @Override
@@ -119,7 +123,7 @@ public class TypeRightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         }
 
-        public void setData(ChannelResult.DataDTO childBean, final int position) {
+        public void setData(TypeBean.DataDTO childBean, final int position) {
             //加载图片
             Glide.with(mContext)
                     .load(childBean.getImg())
@@ -148,7 +152,7 @@ public class TypeRightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         @SuppressLint("SetTextI18n")
-        public void setData(final List<JsonResult> hot_product_list) {
+        public void setData(final List<TypeBean.DataDTO.VideoListDTO> hot_product_list) {
             for (int i = 0; i < hot_product_list.size(); i++) {
 
                 LinearLayout.LayoutParams lineLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -205,7 +209,7 @@ public class TypeRightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         JsonResult goodsBean = new JsonResult(price, title, summary, video_id,point,charpterList,coverImg);
 
                         Intent intent = new Intent(mContext, VideoInfoActivity.class);
-                        intent.putExtra("video_info", goodsBean);
+                        intent.putExtra("video_info", (Serializable) goodsBean);
                         mContext.startActivity(intent);
                         // Toast.makeText(mContext, "position" + i, Toast.LENGTH_SHORT).show();
                     }
