@@ -6,4 +6,5 @@
     <string name="pay_failed">支付失败:</string>
     <string name="auth_success">授权成功:</string>
     <string name="auth_failed">授权失败:</string>
+    <string name="zhucexieyi"><u>注册账号</u></string>
 </resources>

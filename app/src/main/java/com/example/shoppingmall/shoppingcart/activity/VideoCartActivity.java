@@ -18,6 +18,7 @@ import com.example.shoppingmall.R;
 import com.example.shoppingmall.app.MainActivity;
 import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.shoppingcart.adapter.ShopCartAdapter;
+import com.example.shoppingmall.shoppingcart.pay.AliPay;
 import com.example.shoppingmall.shoppingcart.utils.CartStorage;
 
 import java.util.List;
@@ -83,8 +84,8 @@ public class VideoCartActivity extends Activity implements View.OnClickListener{
         if (v == ibShopcartBack) {
             finish();
         } else if (v == btnCheckOut) {
-            // TODO
-            Toast.makeText(VideoCartActivity.this, "结算", Toast.LENGTH_SHORT).show();
+            AliPay aliPay = new AliPay(this,v,adapter,VideoCartActivity.this,tvShopcartTotal);
+            aliPay.payV2(v);
         } else if (v == tvShopcartEdit) {
             //设置编辑的点击事件
             int tag = (int) tvShopcartEdit.getTag();

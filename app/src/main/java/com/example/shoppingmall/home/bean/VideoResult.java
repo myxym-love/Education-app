@@ -37,6 +37,28 @@ public class VideoResult implements Serializable {
     @JSONField(name = "point")
     private Double point;
 
+    public Integer getIsHot() {
+        return isHot;
+    }
+
+    public void setIsHot(Integer isHot) {
+        this.isHot = isHot;
+    }
+
+    @JSONField(name = "is_hot")
+    private Integer isHot;
+
+    public Integer getChannelId() {
+        return channelId;
+    }
+
+    public void setChannelId(Integer channelId) {
+        this.channelId = channelId;
+    }
+
+    @JSONField(name = "channel_id")
+    private Integer channelId;
+
     @JSONField(name = "chapter_list")
     private List<ChapterResult> chapterResultList;
 

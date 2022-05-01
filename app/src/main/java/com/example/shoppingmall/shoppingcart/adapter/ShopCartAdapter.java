@@ -34,7 +34,7 @@ public class ShopCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private CartStorage cartProvider;
     public DecimalFormat df = new DecimalFormat("#.00");
     private Context mContext;
-    private List<JsonResult> datas;
+    public List<JsonResult> datas;
     private List<JsonResult> datas2;
     private TextView tvShopcartTotal;
     private CheckBox checkboxAll;

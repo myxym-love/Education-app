@@ -139,6 +139,11 @@ public class CartStorage {
     }
 
 
+    public void delete(int id) {
+        mCartMap.delete(id);
+        commit();
+    }
+
 
     public void updateData(JsonResult cart) {
         //修改数据
@@ -146,6 +151,7 @@ public class CartStorage {
         //保存数据
         commit();
     }
+
 
     /**
      * 清空购物车

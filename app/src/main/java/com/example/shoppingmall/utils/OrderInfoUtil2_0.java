@@ -1,6 +1,7 @@
 package com.example.shoppingmall.utils;
 
 
+import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.shoppingcart.pay.SignUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -72,7 +73,7 @@ public class OrderInfoUtil2_0 {
 	/**
 	 * 构造支付订单参数列表
 	 */
-	public static Map<String, String> buildOrderParamMap(String app_id, boolean rsa2,String price) {
+	public static Map<String, String> buildOrderParamMap(String app_id, boolean rsa2, String price) {
 		Map<String, String> keyValues = new HashMap<String, String>();
 
 		keyValues.put("app_id", app_id);
@@ -88,7 +89,6 @@ public class OrderInfoUtil2_0 {
 		keyValues.put("timestamp", "2016-07-29 16:55:53");
 
 		keyValues.put("version", "1.0");
-
 		return keyValues;
 	}
 

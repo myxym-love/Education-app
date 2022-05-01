@@ -5,9 +5,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +65,19 @@ public class VideoInfoActivity extends FragmentActivity {
     @BindView(R.id.btn_good_info_addcart)
     Button btn_good_info_addcart;
 
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.tv_good_info_cart)
+    TextView tv_good_info_cart;
+
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.ib_good_info_more)
+    ImageButton ib_good_info_more;
+
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.ib_good_info_back)
+    ImageButton ib_good_info_back;
+
+
     public JsonResult video_info;
 
     public DecimalFormat df = new DecimalFormat("#.00");
@@ -107,8 +126,22 @@ public class VideoInfoActivity extends FragmentActivity {
             }
                 });
 
+
+        // 进入购物车页面
+        tv_good_info_cart.setOnClickListener(v -> {
+            Intent intent = new Intent(VideoInfoActivity.this, VideoCartActivity.class);
+            startActivity(intent);
+                });
+
+        // 返回
+        ib_good_info_back.setOnClickListener(v -> {
+            System.out.println("返回");
+            finish();
+        });
+
         rg_goods_info_main.check(R.id.rb_goods_info_intro); // 默认选中简介
     }
+
 
     @SuppressLint("SetTextI18n")
     private void init() {

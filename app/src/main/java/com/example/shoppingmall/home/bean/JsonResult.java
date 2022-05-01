@@ -14,6 +14,19 @@ public class JsonResult implements Serializable {
 
     private int number = 1;
 
+    public JsonResult(Integer price, String title, String summary, Integer video_id, Double point, List<ChapterDTO> charpterList,String coverImg) {
+        this.price = price;
+        this.title = title;
+        this.summary = summary;
+        this.id = video_id;
+        this.point = point;
+        this.chapterList = charpterList;
+        this.coverImg = coverImg;
+    }
+
+    public JsonResult() {
+    }
+
     public int getNumber() {
         return number;
     }

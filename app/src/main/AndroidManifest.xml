@@ -49,6 +49,9 @@
         <activity android:name=".app.MainActivity"/>
         <activity android:name=".home.activity.SearchActivity"/>
         <activity android:name=".home.activity.VideoInfoActivity"/>
+        <activity android:name=".shoppingcart.activity.VideoCartActivity"/>
+        <activity android:name=".app.LoginActivity"/>
+        <activity android:name=".shoppingcart.fragment.activity.MessageCenterActivity"/>
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
