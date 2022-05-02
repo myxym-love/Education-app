@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.shoppingmall.R;
+import com.example.shoppingmall.home.activity.ChannelActivity;
 import com.example.shoppingmall.home.activity.VideoInfoActivity;
 import com.example.shoppingmall.home.bean.ActResult;
 import com.example.shoppingmall.home.bean.BannerResult;
@@ -28,6 +29,7 @@ import com.example.shoppingmall.home.bean.ResultBean;
 import com.example.shoppingmall.home.bean.VideoResult;
 import com.example.shoppingmall.home.uitls.AlphaPageTransformer;
 import com.example.shoppingmall.home.uitls.ScaleInTransformer;
+import com.example.shoppingmall.type.bean.TypeBean;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
@@ -249,6 +251,16 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public void setData(List<ChannelResult.DataDTO> channel_info) {
             adapter = new ChannelAdapter(mContext, channel_info);
             gridView.setAdapter(adapter);
+
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(mContext, ChannelActivity.class);
+                    intent.putExtra("channel_info", resultBean.getListChannel().get(i));
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 

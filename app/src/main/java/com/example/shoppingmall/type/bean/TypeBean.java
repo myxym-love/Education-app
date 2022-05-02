@@ -225,7 +225,7 @@ public class TypeBean implements Serializable {
             }
         }
 
-        public static class CommonCategoriesDTO {
+        public static class CommonCategoriesDTO implements Serializable{
             @JSONField(name = "id")
             private Integer id;
             @JSONField(name = "img")

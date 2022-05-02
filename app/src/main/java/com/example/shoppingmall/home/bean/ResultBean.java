@@ -1,5 +1,7 @@
 package com.example.shoppingmall.home.bean;
 
+import com.example.shoppingmall.type.bean.TypeBean;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,9 +21,19 @@ public class ResultBean implements Serializable {
 
     private List<VideoResult> video_info;
 
+    public List<TypeBean.DataDTO> getListChannel() {
+        return listChannel;
+    }
+
+    public void setListChannel(List<TypeBean.DataDTO> listChannel) {
+        this.listChannel = listChannel;
+    }
+
     private List<VideoResult> search_info;
 
     private List<JsonResult> jsonResult;
+
+    private List<TypeBean.DataDTO> listChannel;
 
     public List<JsonResult> getJsonResult() {
         return jsonResult;

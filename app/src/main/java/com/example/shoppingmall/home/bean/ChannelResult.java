@@ -3,6 +3,7 @@ package com.example.shoppingmall.home.bean;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class ChannelResult extends JSONObject {
         this.msg = msg;
     }
 
-    public static class DataDTO {
+    public static class DataDTO implements Serializable {
         @JSONField(name = "id")
         private Integer id;
         @JSONField(name = "img")

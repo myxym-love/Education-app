@@ -30,6 +30,7 @@ import com.example.shoppingmall.home.bean.EpisodeResult;
 import com.example.shoppingmall.home.bean.JsonResult;
 import com.example.shoppingmall.home.bean.ResultBean;
 import com.example.shoppingmall.home.bean.VideoResult;
+import com.example.shoppingmall.type.bean.TypeBean;
 import com.example.shoppingmall.utils.Constants;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -105,20 +106,21 @@ public class HomeFragment extends BaseFragment {
             String videoBanner = jsonObject.getString("videoBanner");
             String video = jsonObject.getString("video");
             String channelList = jsonObject.getString("channelList");
+            String listChannel = jsonObject.getString("listChannel");
 
             List<ActResult.DataDTO> actResult = JSON.parseArray(actList, ActResult.DataDTO.class);
             List<BannerResult.DataDTO> bannerResult = JSON.parseArray(videoBanner, BannerResult.DataDTO.class);
             List<VideoResult> videoResult = JSON.parseArray(video, VideoResult.class);
-
             List<JsonResult> jsonResults = JSONObject.parseArray(video, JsonResult.class);
-
             List<ChannelResult.DataDTO> channelResult = JSON.parseArray(channelList, ChannelResult.DataDTO.class);
+            List<TypeBean.DataDTO> channel_info = JSON.parseArray(listChannel, TypeBean.DataDTO.class);
 
             resultBean.setJsonResult(jsonResults);
             resultBean.setAct_info(actResult); // 活动数据
             resultBean.setChannel_info(channelResult); // 频道数据
             resultBean.setBanner_info(bannerResult); // 设置banner数据
             resultBean.setVideo_info(videoResult); // 视频数据
+            resultBean.setListChannel(channel_info); // 分类数据
 
             // 判断数据是否为空
             HomeFragmentAdapter adapter = new HomeFragmentAdapter(mContext, resultBean); // 创建适配器

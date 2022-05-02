@@ -5,7 +5,18 @@
     android:background="#ed3f3f"
     android:orientation="horizontal">
 
+
     <ImageView
+        android:id="@+id/back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/top_bar_left_back"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/saoyisao"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/saoyisao"

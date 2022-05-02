@@ -23,6 +23,7 @@ public class ChannelAdapter extends BaseAdapter {
     public List<ChannelResult.DataDTO> channel_info; // 频道数据
     public ViewHolder viewHolder;
 
+
     /**
      * 构造方法
      * @param mContext 上下文
