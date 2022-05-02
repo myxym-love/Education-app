@@ -48,6 +48,7 @@ public class ListFragment extends BaseFragment {
     private RecyclerView rv_right;
     private List<TypeBean.DataDTO> resultBean;
     private List<TypeBean.DataDTO.VideoListDTO> videoList;
+    private List<TypeBean.DataDTO.CommonCategoriesDTO> commonCategoriesDTOS;
 
 //
 //
@@ -117,7 +118,11 @@ public class ListFragment extends BaseFragment {
                         initListener(leftAdapter);
 
                         //解析右边数据
-                        TypeRightAdapter rightAdapter = new TypeRightAdapter(mContext, videoList,resultBean);
+                        if (isFirst) {
+                            videoList = resultBean.get(0).getVideoList();
+                            commonCategoriesDTOS = resultBean.get(0).getCommonCategories();
+                        }
+                        TypeRightAdapter rightAdapter = new TypeRightAdapter(mContext, videoList,commonCategoriesDTOS);
                         rv_right.setAdapter(rightAdapter);
 
                         GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
@@ -155,9 +160,8 @@ public class ListFragment extends BaseFragment {
                 }
 
                 getDataFromNet();
-                for (int i = 0; i < resultBean.size(); i++) {
-                    videoList.add((TypeBean.DataDTO.VideoListDTO) resultBean.get(i).getVideoList());
-                }
+                videoList = resultBean.get(position).getVideoList();
+                commonCategoriesDTOS = resultBean.get(position).getCommonCategories();
                 leftAdapter.notifyDataSetChanged();
             }
         });

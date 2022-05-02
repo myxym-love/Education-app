@@ -315,6 +315,9 @@ public class CartFragment extends BaseFragment {
                                 cartProvider.delete(Integer.parseInt(s));
                             }
                         }
+                        Intent intent = new Intent();
+                        intent.setClass(mContext,MainActivity.class);
+                        startActivity(intent);
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
 //                        showAlert(mContext, getString(R.string.pay_success) + payResult);
                     } else {

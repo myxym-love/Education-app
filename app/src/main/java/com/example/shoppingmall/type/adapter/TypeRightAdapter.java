@@ -37,7 +37,7 @@ public class TypeRightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     /**
      * 常用分类
      */
-    private List<TypeBean.DataDTO> child;
+    private List<TypeBean.DataDTO.CommonCategoriesDTO> child;
     /**
      * 热卖商品列表的数据
      */
@@ -62,7 +62,7 @@ public class TypeRightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private final LayoutInflater mLayoutInflater;
 
-    public TypeRightAdapter(Context mContext, List<TypeBean.DataDTO.VideoListDTO> result,List<TypeBean.DataDTO> resultBean) {
+    public TypeRightAdapter(Context mContext, List<TypeBean.DataDTO.VideoListDTO> result,List<TypeBean.DataDTO.CommonCategoriesDTO> resultBean) {
         this.mContext = mContext;
 
         mLayoutInflater = LayoutInflater.from(mContext);
@@ -123,7 +123,7 @@ public class TypeRightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         }
 
-        public void setData(TypeBean.DataDTO childBean, final int position) {
+        public void setData(TypeBean.DataDTO.CommonCategoriesDTO childBean, final int position) {
             //加载图片
             Glide.with(mContext)
                     .load(childBean.getImg())
